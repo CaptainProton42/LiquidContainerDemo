@@ -96,8 +96,6 @@ Apart from defining the exports, it also contains this section:
 
 ```
 func _physics_process(delta):
-    time += delta
-
     var accell_3d = (pos - 2 * pos_old + pos_old_old) / delta / delta
     pos_old_old = pos_old
     pos_old = pos
