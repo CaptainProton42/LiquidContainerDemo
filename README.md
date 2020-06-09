@@ -83,7 +83,7 @@ void fragment() {
 
 **Fourth pass** `tint.shader`: Draw the label texture and darken the edges of the container. Add some lighting effects like clearcoat to simulate the glass in front of the liquid. *Drawn in front of all other passes.*
 
-*[I also posted an explanation of a previous version on Reddit](https://www.reddit.com/r/godot/comments/guhtfm/my_wip_liquidinbottle_shader_since_this_stuff/), however, this may be outdated in parts.*
+*[I also posted a more detailed explanation of a previous version on Reddit](https://www.reddit.com/r/godot/comments/guhtfm/my_wip_liquidinbottle_shader_since_this_stuff/), however, this may be outdated in parts.*
 
 Script
 ------
