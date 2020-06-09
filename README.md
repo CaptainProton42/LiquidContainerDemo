@@ -21,9 +21,9 @@ The material is located in `assets/materials/LiquidContainer.tres` and the shade
 
 The material renders in four passes:
 
-**First pass**: Render the back faces of the mesh and add some lighting to simulate the glass. *Drawn behind all other passes.*
+**First pass** `glass.shader`: Render the back faces of the mesh and add some lighting to simulate the glass. *Drawn behind all other passes.*
 
-**Second pass**: Move the vertices of the model inwards a bit to simulate glass thickness and discard all fragments above the liquid line. Add some lighting and bubbles.
+**Second pass** `liquid.shader`: Move the vertices of the model inwards a bit to simulate glass thickness and discard all fragments above the liquid line. Add some lighting and bubbles.
 
 In order to obtain the position in the container *but rotated to world coordinates* (to keep the liquid aligned with the world horizon) we do (where `pos` is a varying)
 
@@ -51,9 +51,9 @@ Then, in the fragment shader we do
 if (pos.y > liquid_line) discard;
 ```
 
-**Third pass**: Similar to the second pass but cull front faces. Recalculate the normals to simulate the surface. *Has to be drawn behind the second pass.*
+**Third pass** `surface.shader`: Similar to the second pass but cull front faces. Recalculate the normals to simulate the surface. *Has to be drawn behind the second pass.*
 
-**Fourth pass**: Draw the label texture and darken the edges of the container. Add some lighting effects like clearcoat to simulate the glass in front of the liquid. *Drawn in front of all other passes.*
+**Fourth pass** `tint.shader`: Draw the label texture and darken the edges of the container. Add some lighting effects like clearcoat to simulate the glass in front of the liquid. *Drawn in front of all other passes.*
 
 *[I also posted an explanation of a previous version on Reddit](https://www.reddit.com/r/godot/comments/guhtfm/my_wip_liquidinbottle_shader_since_this_stuff/), however, this may be outdated in parts.*
 
