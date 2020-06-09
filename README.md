@@ -55,6 +55,11 @@ if (pos.y > liquid_line) discard;
 
 **Fourth pass**: Draw the label texture and darken the edges of the container. Add some lighting effects like clearcoat to simulate the glass in front of the liquid. *Drawn in front of all other passes.*
 
+About
+-----
+
+You can find be on Twitter as [@CaptainProton42](https://twitter.com/CaptainProton42) and on Reddit as [u/CaptainProton42](https://www.reddit.com/user/CaptainProton42).
+
 
 Atrributions
 ------------
