@@ -83,11 +83,18 @@ func _physics_process(delta):
 
     material_pass_2.set_shader_param("coeff", coeff)
     material_pass_3.set_shader_param("coeff", coeff)
-
-    material_pass_2.set_shader_param("vel", (coeff - coeff_old) / delta)
+    
+    ...
 ```
 
 In it, the incline of the liquid is modelled as a dampened harmonic oscillator with the acceleration of the mesh as an external force.
+
+Notes and Pitfalls
+------------------
+
+* Calculating `liquid_line` in the vertex shader has the advantage of only having two texture reads per *vertex* but requires additional geometry on flat surfaces. Moving this to the fragment shader is possible for better looking results but requires to texture reads per *fragment*.
+
+* For simpler materials, render pass 2 and 3 (liquid and surface) could be done in a single pass with `render_mode cull_disabled` but there will be z fighting between back and front faces. This causes problems on transparent and textured liquids.
 
 About
 -----
