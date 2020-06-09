@@ -135,3 +135,5 @@ Atrributions
 This repository uses  the Godot OpenVR Native module, for more information and licensing see [README_VR.md](https://github.com/CaptainProton42/LiquidContainerDemo/blob/master/README_VR.md)
 
 The controller script is based on the VR starter tutorial: https://docs.godotengine.org/en/3.1/tutorials/vr/vr_starter_tutorial.html
+
+Basic idea is taken from https://twitter.com/minionsart/status/986374665399685121
