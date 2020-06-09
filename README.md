@@ -124,6 +124,8 @@ Notes and Pitfalls
 
 * For simpler materials, render pass 2 and 3 (liquid and surface) could be done in a single pass with `render_mode cull_disabled` but there will be z fighting between back and front faces. This causes problems on transparent and textured liquids.
 
+* Export your meshes with smooth shading (in Blender: `Object > Shade Smooth`) for good results.
+
 About
 -----
 
