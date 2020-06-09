@@ -23,24 +23,49 @@ The material renders in four passes:
 
 **First pass** `glass.shader`: Render the back faces of the mesh and add some lighting to simulate the glass. *Drawn behind all other passes.*
 
+In order to only draw the back faces we use
+
+```
+render_mode cull_front;
+```
+
+(I also override the lighting by reversing the normals via `NORMAL = -NORMAL` and writing to `DIFFUSE_LIGHT` in `void light()`.
+
 **Second pass** `liquid.shader`: Move the vertices of the model inwards a bit to simulate glass thickness and discard all fragments above the liquid line. Add some lighting and bubbles.
+
+Moving the vertices inwards is easy:
+
+```
+void vertex() {
+  VERTEX -= glass_thickness * NORMAL;
+  ...
+ }
+```
 
 In order to obtain the position in the container *but rotated to world coordinates* (to keep the liquid aligned with the world horizon) we do (where `pos` is a varying)
 
 ```
-pos = mat3(WORLD_MATRIX)*VERTEX;
+void vertex() {
+  ...
+  pos = mat3(WORLD_MATRIX)*VERTEX;
+  ...
+ }
 ```
 
 The height above which to discard is defined by the `varying` `liquid_line` as follows:
 
 ```
-float d = dot(vec3(WORLD_MATRIX[0][1], WORLD_MATRIX[1][1], WORLD_MATRIX[2][1]), vec3(0.0f, 1.0f, 0.0f));
-float m = lerp(width, height, abs(d));
-  
-liquid_line = (fill_amount - 0.5f) * m
-        + wave_intensity * length(coeff) * (texture(waves_noise, 2.0*pos.xz + 0.5*TIME * vec2(1.0, 1.0)).r - 0.5f
-                              + texture(waves_noise, 2.0*pos.xz - 0.5*TIME * vec2(1.0, 1.0)).g - 0.5f)
-        + dot(pos.xz, coeff);
+void vertex() {
+  ...
+  float d = dot(vec3(WORLD_MATRIX[0][1], WORLD_MATRIX[1][1], WORLD_MATRIX[2][1]), vec3(0.0f, 1.0f, 0.0f));
+  float m = lerp(width, height, abs(d));
+
+  liquid_line = (fill_amount - 0.5f) * m
+          + wave_intensity * length(coeff) * (texture(waves_noise, 2.0*pos.xz + 0.5*TIME * vec2(1.0, 1.0)).r - 0.5f
+                                + texture(waves_noise, 2.0*pos.xz - 0.5*TIME * vec2(1.0, 1.0)).g - 0.5f)
+          + dot(pos.xz, coeff);
+  ...
+}
 ```
 
 We lerp between the width and the height of the container depending on the orientation of its z axis. This allows more realistic simulation of a constant liquid volume. Then, we add a noise texture (in this case Worley noise) moved over time and superimposed to create the smaller waves and finally the incline of the liquid surface based on the current coefficients `coeff` of the incline (which are set by the script).
@@ -48,7 +73,10 @@ We lerp between the width and the height of the container depending on the orien
 Then, in the fragment shader we do
 
 ```
-if (pos.y > liquid_line) discard;
+void fragment() {
+  if (pos.y > liquid_line) discard;
+  ...
+ }
 ```
 
 **Third pass** `surface.shader`: Similar to the second pass but cull front faces. Recalculate the normals to simulate the surface. *Has to be drawn behind the second pass.*
