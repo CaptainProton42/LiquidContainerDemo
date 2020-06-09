@@ -7,4 +7,4 @@ func _ready():
 
 # Higher resolution spectator camera
 func _process(delta):
-	get_node("Camera").transform = get_node("Viewport/ARVROrigin/PlayerCamera").transform
+	get_node("Camera").global_transform = get_node("Viewport/ARVROrigin/PlayerCamera").global_transform
