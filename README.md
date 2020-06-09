@@ -55,6 +55,40 @@ if (pos.y > liquid_line) discard;
 
 **Fourth pass**: Draw the label texture and darken the edges of the container. Add some lighting effects like clearcoat to simulate the glass in front of the liquid. *Drawn in front of all other passes.*
 
+*[I also posted an explanation of a previous version on Reddit](https://www.reddit.com/r/godot/comments/guhtfm/my_wip_liquidinbottle_shader_since_this_stuff/), however, this may be outdated in parts.*
+
+Script
+------
+
+The motion of the surface is calculated in a script that then sets `coeff` in the second and the third pass.
+
+This script can be found in `scripts/Bottle.gd` and has to be assigned to any mesh using the `LiquidContainer` material.
+
+Apart from defining the exports, it also contains this section:
+
+```
+func _physics_process(delta):
+    time += delta
+
+    var accell_3d = (pos - 2 * pos_old + pos_old_old) / delta / delta
+    pos_old_old = pos_old
+    pos_old = pos
+    pos = to_global(translation)
+
+    accell = Vector2(accell_3d.x, accell_3d.z)
+
+    coeff_old_old = coeff_old
+    coeff_old = coeff
+    coeff = delta*delta* (-spring_constant*coeff_old - reaction*accell) + 2 * coeff_old - coeff_old_old - delta * dampening * (coeff_old - coeff_old_old)
+
+    material_pass_2.set_shader_param("coeff", coeff)
+    material_pass_3.set_shader_param("coeff", coeff)
+
+    material_pass_2.set_shader_param("vel", (coeff - coeff_old) / delta)
+```
+
+In it, the incline of the liquid is modelled as a dampened harmonic oscillator with the acceleration of the mesh as an external force.
+
 About
 -----
 
