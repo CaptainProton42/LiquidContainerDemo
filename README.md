@@ -1,40 +1,35 @@
-# Godot OpenVR GDNative module
-This module is provided as is, all files are contained within the addons/godot-openvr-asset folder
+# Liquid Container Demo
 
-This module requires **Godot 3.1 or newer** to run, **Godot 3.2** is highly recommended.
+This repository contains a demo scene for a liquid-in-container shader I made in the Godot Engine.
+The containers use tool scripts and and can thus be run directly from the editor or the scene can be started in OpenVR.
 
-The scenes subfolder contains a number of godot scenes that help you set up your project. 
-For basic functionality start with adding ovr_first_person.tcn to your project.
-Also make sure that vsync is turned off in your project settings.
+![](https://raw.githubusercontent.com/CaptainProton42/LiquidContainerDemo/media/demo_gif1.gif)
 
-Source code for this module can be found here:
-https://github.com/GodotVR/godot_openvr
+Instructions
+------------
 
-Also note that we have a support asset containing a number of useful scenes to get you going building VR applications in Godot:
-https://github.com/GodotVR/godot-vr-common
+Open `scenes/Demo.tscn` to view the demo scene and play the project to run it in VR.
 
-Documentation on using this asset can be found here:
-https://github.com/GodotVR/godot-openvr-asset/wiki
+Material properties can be edited by changing the exported variables of the *mesh* script.
 
-HDR support
------------
-HDR support was added to OpenVR but requires the keep_3d_linear flag added to Godot 3.2. This will ensure rendering inside of the headset is correct. The preview on screen will look darker. You can solve this by using a separate viewport.
+![](https://raw.githubusercontent.com/CaptainProton42/LiquidContainerDemo/media/demo_gif2.gif)
 
-When using Godot 3.1 you need to either use the GLES2 renderer or turn HDR off on the viewport used to render to the HMD.
+Material
+--------
 
-Licensing
----------
-The Godot OpenVR module and the godot scenes in this add on are all supplied under an MIT License.
+The material is located in `assets/materials/LiquidContainer.tres` and the shaders used for each pass are located in `assets/shaders`.
 
-The dynamic libraries supplier by Valve fall under Valve's own license.
-For more information about this license please visit https://github.com/ValveSoftware/openvr
+The material renders in four passes:
 
-About this repository
----------------------
-This repository was created by and is maintained by Bastiaan Olij a.k.a. Mux213
+**First pass**: Render the back faces of the mesh and add some lighting to simulate the glass. *Drawn behind all other passes.*
 
-You can follow me on twitter for regular updates here:
-https://twitter.com/mux213
+**Second pass**: Move the vertices of the model inwards a bit to simulate glass thickness and discard all fragments above the liquid line. Add some lighting and bubbles.
 
-Videos about my work with Godot including tutorials on working with VR in Godot can by found on my youtube page:
-https://www.youtube.com/BastiaanOlij
+** Third pass**: Similar to the second pass but cull front faces. Recalculate the normals to simulate the surface. *Has to be drawn behind the second pass.*
+
+** Fourth pass**: Draw the label texture and darken the edges of the container. Add some lighting effects like clearcoat to simulate the glass in front of the liquid. *Drawn in front of all other passes.*
+
+
+Atrributions
+------------
+This repository uses  the Godot OpenVR Native module, for more information and licensing see [README_VR.md](https://github.com/CaptainProton42/LiquidContainerDemo/blob/master/README_VR.md)
