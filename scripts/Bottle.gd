@@ -38,8 +38,6 @@ onready var material_pass_4
 
 var accell : Vector2
 
-var time : float = 0.0
-
 func set_fill_amount(p_fill_amount : float):
 	if is_inside_tree():
 		material_pass_2.set_shader_param("fill_amount", p_fill_amount)
@@ -130,8 +128,6 @@ func _ready():
 	material_pass_4 = material_pass_3.next_pass
 
 func _physics_process(delta):
-	time += delta
-
 	var accell_3d = (pos - 2 * pos_old + pos_old_old) / delta / delta
 	pos_old_old = pos_old
 	pos_old = pos
