@@ -25,7 +25,7 @@ The material renders in four passes:
 
 **Second pass**: Move the vertices of the model inwards a bit to simulate glass thickness and discard all fragments above the liquid line. Add some lighting and bubbles.
 
-In order to obtain the position in the container but rotated to world coordinates (to keep the liquid aligned with the world horizon) we do (where `pos` is a varying)
+In order to obtain the position in the container *but rotated to world coordinates* (to keep the liquid aligned with the world horizon) we do (where `pos` is a varying)
 
 ```
 pos = mat3(WORLD_MATRIX)*VERTEX;
