@@ -1,0 +1,94 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://assets/textures/worley.png" type="Texture" id=1]
+[ext_resource path="res://assets/textures/label_oil.png" type="Texture" id=2]
+[ext_resource path="res://assets/textures/bubbles.png" type="Texture" id=3]
+[ext_resource path="res://scripts/Bottle.gd" type="Script" id=4]
+[ext_resource path="res://assets/meshes/oil.obj" type="ArrayMesh" id=5]
+[ext_resource path="res://assets/meshes/oil_deko.obj" type="ArrayMesh" id=6]
+[ext_resource path="res://assets/shaders/liquid.shader" type="Shader" id=7]
+[ext_resource path="res://assets/shaders/surface.shader" type="Shader" id=8]
+[ext_resource path="res://assets/shaders/tint.shader" type="Shader" id=9]
+[ext_resource path="res://assets/shaders/glass.shader" type="Shader" id=10]
+
+[sub_resource type="ShaderMaterial" id=7]
+render_priority = 4
+shader = ExtResource( 9 )
+shader_param/edge_darkening = 1.0
+shader_param/glass_color = Color( 0.34902, 0.145098, 0.407843, 1 )
+shader_param/label_tex = ExtResource( 2 )
+
+[sub_resource type="ShaderMaterial" id=8]
+render_priority = 2
+next_pass = SubResource( 7 )
+shader = ExtResource( 8 )
+shader_param/coeff = Vector2( 0, 0 )
+shader_param/fill_amount = 0.9
+shader_param/glass_thickness = 0.005
+shader_param/height = 0.23
+shader_param/width = 0.07
+shader_param/wave_intensity = 0.05
+shader_param/liquid_color = Color( 0.803922, 0.647059, 0.0196078, 1 )
+shader_param/glow_color = Color( 0.960784, 0.980392, 0.411765, 1 )
+shader_param/waves_noise = ExtResource( 1 )
+
+[sub_resource type="ShaderMaterial" id=9]
+render_priority = 3
+next_pass = SubResource( 8 )
+shader = ExtResource( 7 )
+shader_param/coeff = Vector2( 0, 0 )
+shader_param/vel = Vector2( 0, 0 )
+shader_param/fill_amount = 0.9
+shader_param/height = 0.23
+shader_param/width = 0.07
+shader_param/glass_thickness = 0.005
+shader_param/wave_intensity = 0.05
+shader_param/liquid_color = Color( 0.803922, 0.647059, 0.0196078, 1 )
+shader_param/glow_color = Color( 0.960784, 0.980392, 0.411765, 1 )
+shader_param/waves_noise = ExtResource( 1 )
+shader_param/bubbles_tex = ExtResource( 3 )
+
+[sub_resource type="ShaderMaterial" id=10]
+render_priority = 1
+next_pass = SubResource( 9 )
+shader = ExtResource( 10 )
+shader_param/glass_color = Color( 0.921569, 1, 0.988235, 1 )
+shader_param/glint_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="ConvexPolygonShape" id=5]
+margin = 0.001
+points = PoolVector3Array( -0.041417, -0.11678, -0.0338504, -0.0412712, 0.107311, 0.0215413, -0.041182, 0.107127, -0.0311475, -0.0411265, -0.115812, 0.033987, -0.0410555, 0.104364, -0.0335547, -0.0409695, 0.104192, 0.0338586, -0.0405429, 0.0391765, -0.0355991, -0.0392893, 0.111033, 0.0345707, -0.0388389, 0.107495, 0.0366917, -0.0386436, 0.109575, -0.0361347, -0.0381855, 0.101103, -0.0381855, -0.0363299, 0.107524, 0.0392265, -0.0356257, 0.0194795, -0.0405731, -0.0355776, -0.0669009, -0.0405183, -0.0342935, 0.111307, -0.0394103, -0.03401, 0.110571, 0.039459, -0.0336059, -0.115817, -0.0411281, -0.0335395, -0.115547, 0.0414211, -0.0335448, 0.10436, -0.0410534, -0.0333043, 0.101287, 0.0411336, -0.0312353, 0.104849, 0.0416722, -0.0195811, 0.166918, 0.00149879, -0.0186495, 0.107305, -0.0412682, -0.0169493, 0.166918, -0.0090369, -0.0169493, 0.166918, 0.00941121, -0.0143175, 0.166918, -0.014309, -0.0143175, 0.166918, 0.0146833, -0.0090369, 0.166918, 0.0173236, -0.00376479, 0.166918, -0.0195811, 0.00149879, 0.166918, -0.0195811, 0.00941121, 0.166918, -0.0169493, 0.00941121, 0.166918, 0.0173236, 0.0146918, 0.166918, -0.014309, 0.0173236, 0.166918, -0.0090369, 0.0173236, 0.166918, 0.00941121, 0.0314806, 0.107015, -0.0411276, 0.0315451, 0.104678, 0.0415871, 0.0335978, 0.101095, 0.0410348, 0.033676, -0.114578, 0.0411305, 0.0338557, 0.104205, -0.0409758, 0.0341729, -0.116603, -0.0413636, 0.0344464, 0.110732, 0.0395304, 0.0345135, 0.110906, -0.0392331, 0.0365659, 0.1072, 0.0390787, 0.0367042, 0.107524, -0.0388522, 0.0390913, 0.107227, 0.0365777, 0.039202, 0.10747, -0.036307, 0.039406, 0.110452, 0.0343463, 0.0396523, 0.111008, -0.0341865, 0.0410504, 0.101125, 0.0336185, 0.041118, 0.10374, -0.0332995, 0.0411349, -0.114592, -0.0333133, 0.0414211, -0.115547, 0.0339218, 0.0415897, 0.104684, 0.0315471 )
+
+[sub_resource type="SpatialMaterial" id=6]
+clearcoat_enabled = true
+clearcoat = 1.0
+clearcoat_gloss = 0.5
+
+[node name="Oil" type="RigidBody"]
+
+[node name="Mesh" type="MeshInstance" parent="."]
+transform = Transform( 0.999993, 0, 0, 0, 0.999995, 0, 0, 0, 0.999999, 0, 0, 0 )
+mesh = ExtResource( 5 )
+material/0 = SubResource( 10 )
+script = ExtResource( 4 )
+fill_amount = 0.9
+glass_color = Color( 0.921569, 1, 0.988235, 1 )
+glass_glow_color = Color( 1, 1, 1, 1 )
+glass_thickness = 0.005
+liquid_color = Color( 0.803922, 0.647059, 0.0196078, 1 )
+liquid_glow_color = Color( 0.960784, 0.980392, 0.411765, 1 )
+container_height = 0.23
+container_width = 0.07
+wave_intensity = null
+bottle_label = ExtResource( 2 )
+dampening = 3.0
+spring_constant = 200.0
+reaction = 4.0
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 0.999993, 0, 0, 0, 0.999995, 0, 0, 0, 0.999999, 0, 0, 0 )
+shape = SubResource( 5 )
+
+[node name="Deko" type="MeshInstance" parent="."]
+mesh = ExtResource( 6 )
+material/0 = SubResource( 6 )

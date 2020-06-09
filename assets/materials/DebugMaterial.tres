@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=2]
+
+[ext_resource path="res://assets/shaders/DebugMaterial.shader" type="Shader" id=1]
+[ext_resource path="res://assets/textures/test_checkers.png" type="Texture" id=2]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/color = Color( 0.929412, 0.894118, 0.329412, 1 )
+shader_param/tex = ExtResource( 2 )

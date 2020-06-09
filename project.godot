@@ -1,0 +1,40 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[  ]
+_global_script_class_icons={
+
+}
+
+[application]
+
+config/name="Container Liquid Demo"
+run/main_scene="res://scenes/Demo.tscn"
+config/icon="res://icon.png"
+
+[display]
+
+window/size/width=2560
+window/size/height=1440
+window/size/fullscreen=true
+
+[gdnative]
+
+singletons=[ "res://addons/godot-openvr/godot_openvr.gdnlib" ]
+
+[physics]
+
+common/physics_fps=120
+3d/physics_engine="Bullet"
+
+[rendering]
+
+quality/shadows/filter_mode=2
+environment/default_environment="res://default_env.tres"

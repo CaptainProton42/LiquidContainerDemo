@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/oil_deko.obj-b26cc848eb9ac52ea7d79458531ce580.mesh"
+
+[deps]
+
+files=[ "res://.import/oil_deko.obj-b26cc848eb9ac52ea7d79458531ce580.mesh" ]
+
+source_file="res://assets/meshes/oil_deko.obj"
+dest_files=[ "res://.import/oil_deko.obj-b26cc848eb9ac52ea7d79458531ce580.mesh", "res://.import/oil_deko.obj-b26cc848eb9ac52ea7d79458531ce580.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

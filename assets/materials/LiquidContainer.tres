@@ -1,0 +1,53 @@
+[gd_resource type="ShaderMaterial" load_steps=11 format=2]
+
+[ext_resource path="res://assets/textures/bubbles.png" type="Texture" id=1]
+[ext_resource path="res://assets/shaders/tint.shader" type="Shader" id=2]
+[ext_resource path="res://assets/shaders/surface.shader" type="Shader" id=3]
+[ext_resource path="res://assets/shaders/liquid.shader" type="Shader" id=4]
+[ext_resource path="res://assets/shaders/glass.shader" type="Shader" id=5]
+[ext_resource path="res://assets/textures/worley.png" type="Texture" id=6]
+[ext_resource path="res://assets/textures/label_oil.png" type="Texture" id=7]
+
+[sub_resource type="ShaderMaterial" id=1]
+render_priority = 4
+shader = ExtResource( 2 )
+shader_param/edge_darkening = 1.0
+shader_param/glass_color = Color( 0.34902, 0.145098, 0.407843, 1 )
+shader_param/label_tex = ExtResource( 7 )
+
+[sub_resource type="ShaderMaterial" id=2]
+render_priority = 2
+next_pass = SubResource( 1 )
+shader = ExtResource( 3 )
+shader_param/coeff = Vector2( -3.46121e-43, 3.50325e-44 )
+shader_param/fill_amount = 0.9
+shader_param/glass_thickness = 0.005
+shader_param/height = 0.23
+shader_param/width = 0.07
+shader_param/wave_intensity = 0.05
+shader_param/liquid_color = Color( 0.803922, 0.647059, 0.0196078, 1 )
+shader_param/glow_color = Color( 0.960784, 0.980392, 0.411765, 1 )
+shader_param/waves_noise = ExtResource( 6 )
+
+[sub_resource type="ShaderMaterial" id=3]
+render_priority = 3
+next_pass = SubResource( 2 )
+shader = ExtResource( 4 )
+shader_param/coeff = Vector2( -3.46121e-43, 3.50325e-44 )
+shader_param/vel = Vector2( 5.04467e-43, 4.87652e-42 )
+shader_param/fill_amount = 0.9
+shader_param/height = 0.23
+shader_param/width = 0.07
+shader_param/glass_thickness = 0.005
+shader_param/wave_intensity = 0.05
+shader_param/liquid_color = Color( 0.803922, 0.647059, 0.0196078, 1 )
+shader_param/glow_color = Color( 0.960784, 0.980392, 0.411765, 1 )
+shader_param/waves_noise = ExtResource( 6 )
+shader_param/bubbles_tex = ExtResource( 1 )
+
+[resource]
+render_priority = 1
+next_pass = SubResource( 3 )
+shader = ExtResource( 5 )
+shader_param/glass_color = Color( 0.921569, 1, 0.988235, 1 )
+shader_param/glint_color = Color( 1, 1, 1, 1 )
